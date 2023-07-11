@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 type HeaderProps = {
-  isLoading?: boolean;
+  isLoading: boolean;
 };
 
 const Loading = () => (
