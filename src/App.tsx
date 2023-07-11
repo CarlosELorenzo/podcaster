@@ -12,7 +12,10 @@ function App() {
       <div className="container max-w-[80%] mx-auto px-4  w-full">
         <Header isLoading={isLoading} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={data && <Home data={data as PodcastType[]} />}
+          />
           <Route path="/podcast/:podcastId" element={<Podcast />} />
           <Route
             path="/podcast/:podcastId/episode/:episodeId"
