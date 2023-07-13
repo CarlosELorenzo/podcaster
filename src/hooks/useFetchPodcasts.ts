@@ -1,8 +1,7 @@
-import useSWR from "swr";
-import { useEffect } from "react";
 import { ALL_PODCASTS_URL } from "../constants";
 import { PodcastType } from "../types";
 import { fetcher } from "./utils";
+import { useFetchWithCache } from "./useFetchWithCache";
 
 interface AllPodcastsResponse {
   feed: {
@@ -39,7 +38,7 @@ const parseTopPodcasts = (data: AllPodcastsResponse) =>
         author: podcast["im:artist"].label,
         description: podcast.summary.label,
         imageUrl: podcast["im:image"][2].label,
-      }) as PodcastType
+      } as PodcastType)
   );
 
 type FetchedAllPodcasts = {
@@ -48,13 +47,9 @@ type FetchedAllPodcasts = {
 };
 
 export const useFetchPodcasts = (): FetchedAllPodcasts => {
-  const { data, isLoading, error } = useSWR(ALL_PODCASTS_URL, (url) =>
+  const { data, isLoading } = useFetchWithCache(ALL_PODCASTS_URL, (url) =>
     fetcher<PodcastType[]>(url, parseTopPodcasts)
   );
-
-  useEffect(() => {
-    if (error) console.error(error);
-  }, [error]);
 
   return {
     data,

@@ -24,6 +24,20 @@ export const fetcher = async <T>(
 export const parseCorsApiResponse = <T>(
   data: CorsApiResponse
 ): ApiResponseType<T> => {
-  console.log("parseCorsApiResponse", data?.contents);
   return JSON.parse(data?.contents || "{}") as ApiResponseType<T>;
 };
+
+export function msToTime(duration: number) {
+  const seconds = Math.floor((duration / 1000) % 60);
+  const minutes = Math.floor((duration / (1000 * 60)) % 60);
+  const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  const hoursDisplay = hours > 0 ? `${hours.toString()}:` : "";
+  const minutesDisplay =
+    hoursDisplay.length > 0
+      ? minutes.toString().padStart(2, "0")
+      : minutes.toString();
+  const secondsDisplay = seconds.toString().padStart(2, "0");
+
+  return hoursDisplay + minutesDisplay + ":" + secondsDisplay;
+}

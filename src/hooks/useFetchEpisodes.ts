@@ -1,8 +1,7 @@
-import useSWR from "swr";
-import { useEffect } from "react";
 import { EpisodeType } from "../types";
-import { fetcher, parseCorsApiResponse } from "./utils";
+import { fetcher, msToTime, parseCorsApiResponse } from "./utils";
 import { PODCAST_URL } from "../constants";
+import { useFetchWithCache } from "./useFetchWithCache";
 
 const getEpisodesUrl = (podcastId?: string) =>
   podcastId
@@ -47,24 +46,8 @@ type EpisodesResponse = {
   episodeUrl: string;
 };
 
-function msToTime(duration: number) {
-  const seconds = Math.floor((duration / 1000) % 60);
-  const minutes = Math.floor((duration / (1000 * 60)) % 60);
-  const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-  const hoursDisplay = hours > 0 ? `${hours.toString()}:` : "";
-  const minutesDisplay =
-    hoursDisplay.length > 0
-      ? minutes.toString().padStart(2, "0")
-      : minutes.toString();
-  const secondsDisplay = seconds.toString().padStart(2, "0");
-
-  return hoursDisplay + minutesDisplay + ":" + secondsDisplay;
-}
-
 const parseEpisodes = (data: any): EpisodeType[] => {
-  const { resultCount, results } = parseCorsApiResponse<EpisodesResponse>(data);
-  console.log("parseEpisodes", resultCount, results[0]);
+  const { results } = parseCorsApiResponse<EpisodesResponse>(data);
   return results.map((result) => {
     return {
       id: result.trackId.toString(),
@@ -85,13 +68,9 @@ type FetchedEpisodes = {
 export const useFetchEpisodes = (podcastId?: string): FetchedEpisodes => {
   const url = getEpisodesUrl(podcastId);
 
-  const { data, isLoading, error } = useSWR(url, (url) =>
+  const { data, isLoading } = useFetchWithCache(url, (url: string) =>
     fetcher<EpisodeType[]>(url, parseEpisodes)
   );
-
-  useEffect(() => {
-    if (error) console.error(error);
-  }, [error]);
 
   return {
     data,
