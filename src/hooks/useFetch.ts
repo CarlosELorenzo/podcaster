@@ -23,6 +23,13 @@ export const useFetch = (): FetchedData => {
       podcasts: podcasts.data,
     };
   if (PODCAST_URL_REGEX.test(pathname)) {
+    if (
+      !episodes.isLoading &&
+      !podcasts.isLoading &&
+      (!episodes.data || !podcasts.data)
+    )
+      console.error("Error fetching data...");
+
     return {
       isLoading: episodes.isLoading || podcasts.isLoading,
       episodes: episodes.data,

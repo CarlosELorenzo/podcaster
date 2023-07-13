@@ -26,8 +26,13 @@ export const Episode = ({ podcasts, episodes }: EpisodeProps) => {
         <h2 className="font-bold text-2xl">{episode.title}</h2>
         <p className="italic">{parseTextWithLinks(episode.description)}</p>
 
-      <div className="border-b w-full" />
-        <audio className="w-full" id="audio" controls src={episode.episodeUrl} />
+        <div className="border-b w-full" />
+        <audio
+          className="w-full"
+          id="audio"
+          controls
+          src={episode.episodeUrl}
+        />
       </div>
     </div>
   );

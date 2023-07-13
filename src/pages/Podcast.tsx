@@ -12,8 +12,8 @@ export const Podcast = ({ podcasts, episodes }: PodcastProps) => {
   const podcastId = pathname.split("/")[2];
   const podcast = podcasts.find((podcast) => podcast.id === podcastId);
 
-  if (!podcast) {
-    console.error("Podcast not found");
+  if (!podcast || !episodes || episodes.length === 0) {
+    console.error(getError(podcast, episodes));
     return <></>;
   }
 
@@ -29,3 +29,16 @@ export const Podcast = ({ podcasts, episodes }: PodcastProps) => {
     </div>
   );
 };
+
+function getError(
+  podcast: PodcastType | undefined,
+  episode: EpisodeType[] | undefined
+) {
+  if (!podcast && !episode) {
+    return "Podcast and episodes not found";
+  }
+  if (!podcast) {
+    return "Podcast not found";
+  }
+  return "Episodes not found";
+}
