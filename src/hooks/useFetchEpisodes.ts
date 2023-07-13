@@ -13,7 +13,7 @@ const getEpisodesUrl = (podcastId?: string) =>
       )}`
     : null;
 
-type PodcastResponse = {
+type EpisodesResponse = {
   wrapperType: string;
   kind: string;
   artistId: number;
@@ -36,7 +36,7 @@ type PodcastResponse = {
   releaseDate: string;
   collectionExplicitness: string;
   trackExplicitness: string;
-
+  description: string;
   country: string;
   currency: string;
   primaryGenreName: string;
@@ -63,7 +63,7 @@ function msToTime(duration: number) {
 }
 
 const parseEpisodes = (data: any): EpisodeType[] => {
-  const { resultCount, results } = parseCorsApiResponse<any>(data);
+  const { resultCount, results } = parseCorsApiResponse<EpisodesResponse>(data);
   console.log("parseEpisodes", resultCount, results[0]);
   return results.map((result) => {
     return {
