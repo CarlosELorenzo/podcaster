@@ -27,7 +27,13 @@ function App() {
           />
           <Route
             path="/podcast/:podcastId/episode/:episodeId"
-            element={<Episode />}
+            element={
+              podcasts && episodes && !isLoading ? (
+                <Episode podcasts={podcasts} episodes={episodes} />
+              ) : (
+                <></>
+              )
+            }
           />
         </Routes>
       </div>

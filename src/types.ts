@@ -2,7 +2,7 @@ export type PodcastType = {
   id: string;
   title: string;
   author: string;
-  summary: string;
+  description: string;
   imageUrl: string;
 };
 
