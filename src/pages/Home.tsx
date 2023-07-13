@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, PodcastSearch } from "../coponents";
+import { Card, PodcastSearch } from "../components";
 import { PodcastType } from "../types";
 
 type HomeProps = {

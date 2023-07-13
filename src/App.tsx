@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Home, Podcast, Episode } from "./pages";
 
-import { Header } from "./coponents";
+import { Header } from "./components";
 import { useFetch } from "./hooks/fetch/useFetch";
 import { EpisodeType, PodcastType } from "./types";
 
