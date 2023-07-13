@@ -10,7 +10,7 @@ export const Card = ({ podcast }: CardProps) => {
   return (
     <>
       <Link
-        className="w-60 relative flex items-end flex-col  mt-20"
+        className="w-60 relative flex items-end flex-col mt-20"
         to={`/podcast/${podcast.id}`}
       >
         <img

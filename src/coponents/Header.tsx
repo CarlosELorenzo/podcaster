@@ -22,7 +22,7 @@ export const Header = ({ isLoading }: HeaderProps) => {
         </Link>
         {isLoading && <Loading />}
       </div>
-      <div className="border-b w-full h-1 absolute left-0" />
+      <div className="border-b w-full h-0 absolute left-0" />
     </div>
   );
 };
