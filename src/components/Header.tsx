@@ -16,7 +16,7 @@ const Loading = () => (
 export const Header = ({ isLoading }: HeaderProps) => {
   return (
     <div>
-      <div className="py-2 container flex flex-row justify-between align-middle max-w-5xl mx-auto">
+      <div className="py-2 container flex flex-row justify-between align-middle ">
         <Link to="/">
           <h2 className="text-xl font-bold text-sky-400">Podcaster</h2>
         </Link>
