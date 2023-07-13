@@ -14,11 +14,9 @@ export const fetcher = async <T>(
 ): Promise<T> => {
   try {
     const data = await (await fetch(url)).json();
-    console.log("fetcher:", url, data);
-    if (data.contents) console.log("fetcher:", JSON.parse(data.contents));
     return parser(data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
   return [] as T;
 };
@@ -26,5 +24,6 @@ export const fetcher = async <T>(
 export const parseCorsApiResponse = <T>(
   data: CorsApiResponse
 ): ApiResponseType<T> => {
+  console.log("parseCorsApiResponse", data?.contents);
   return JSON.parse(data?.contents || "{}") as ApiResponseType<T>;
 };

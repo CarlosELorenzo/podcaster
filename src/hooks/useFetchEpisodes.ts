@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import { useEffect } from "react";
-import { EpisodeType } from "../../types";
+import { EpisodeType } from "../types";
 import { fetcher, parseCorsApiResponse } from "./utils";
-import { PODCAST_URL } from "../../constants";
+import { PODCAST_URL } from "../constants";
 
 const getEpisodesUrl = (podcastId?: string) =>
   podcastId
@@ -63,7 +63,8 @@ function msToTime(duration: number) {
 }
 
 const parseEpisodes = (data: any): EpisodeType[] => {
-  const { resultCount, results } = parseCorsApiResponse<PodcastResponse>(data);
+  const { resultCount, results } = parseCorsApiResponse<any>(data);
+  console.log("parseEpisodes", resultCount, results[0]);
   return results.map((result) => {
     return {
       id: result.trackId.toString(),
@@ -71,6 +72,7 @@ const parseEpisodes = (data: any): EpisodeType[] => {
       date: new Date(result.releaseDate).toISOString(),
       duration: msToTime(result.trackTimeMillis),
       episodeUrl: result.episodeUrl,
+      description: result.description,
     } as EpisodeType;
   });
 };
@@ -90,10 +92,6 @@ export const useFetchEpisodes = (podcastId?: string): FetchedEpisodes => {
   useEffect(() => {
     if (error) console.error(error);
   }, [error]);
-
-  useEffect(() => {
-    if (data) console.log(data);
-  }, [data]);
 
   return {
     data,

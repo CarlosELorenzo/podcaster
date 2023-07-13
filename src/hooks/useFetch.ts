@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { useFetchPodcasts } from "./useFetchPodcasts";
-import { PodcastType, EpisodeType } from "../../types";
+import { PodcastType, EpisodeType } from "../types";
 import { useFetchEpisodes } from "./useFetchEpisodes";
-import { PODCAST_URL_REGEX } from "../../constants";
+import { PODCAST_URL_REGEX } from "../constants";
 
 export type FetchedData = {
   podcasts?: PodcastType[];

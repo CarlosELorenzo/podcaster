@@ -1,4 +1,5 @@
 import { PodcastType } from "../types";
+import { parseTextWithLinks } from "../utils";
 
 type PodcastDetailProps = {
   podcast: PodcastType;
@@ -6,9 +7,9 @@ type PodcastDetailProps = {
 
 export const PodcastDetail = ({ podcast }: PodcastDetailProps) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-2 p-4 w-52 shadow h-fit shadow-gray-400 shrink-0">
+    <div className="flex flex-col justify-center overflow-hidden items-center gap-2 p-4 w-60 shadow h-fit shadow-gray-400 shrink-0">
       <img
-        className="rounded-sm w-32"
+        className="rounded-sm w-40"
         src={podcast.imageUrl}
         alt={podcast.title}
       />
@@ -20,7 +21,7 @@ export const PodcastDetail = ({ podcast }: PodcastDetailProps) => {
       <div className="border-b w-full" />
       <div className="w-full">
         <p className="font-bold">Description:</p>
-        <p className="italic">{podcast.summary}</p>
+        <p className="italic">{parseTextWithLinks(podcast.description)}</p>
       </div>
     </div>
   );

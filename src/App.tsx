@@ -2,8 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Home, Podcast, Episode } from "./pages";
 
 import { Header } from "./components";
-import { useFetch } from "./hooks/fetch/useFetch";
-import { EpisodeType, PodcastType } from "./types";
+import { useFetch } from "./hooks/useFetch";
 
 function App() {
   const { podcasts, episodes, isLoading } = useFetch();
@@ -14,18 +13,13 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              podcasts ? <Home data={podcasts as PodcastType[]} /> : <></>
-            }
+            element={podcasts ? <Home data={podcasts} /> : <></>}
           />
           <Route
             path="/podcast/:podcastId"
             element={
               podcasts && episodes && !isLoading ? (
-                <Podcast
-                  podcasts={podcasts as PodcastType[]}
-                  episodes={episodes as EpisodeType[]}
-                />
+                <Podcast podcasts={podcasts} episodes={episodes} />
               ) : (
                 <></>
               )
