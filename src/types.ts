@@ -6,3 +6,11 @@ export type PodcastType = {
   imageUrl: string;
 };
 
+export type EpisodeType = {
+  id: string;
+  title: string;
+  date: string;
+  duration: string;
+  description: string;
+  episodeUrl: string;
+};

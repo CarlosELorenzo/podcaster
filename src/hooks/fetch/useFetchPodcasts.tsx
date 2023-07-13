@@ -2,10 +2,9 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { ALL_PODCASTS_URL } from "../../constants";
 import { PodcastType } from "../../types";
-import { FetchedData } from "./useFetch";
 import { fetcher } from "./utils";
 
-interface TopPodcastsResponse {
+interface AllPodcastsResponse {
   feed: {
     entry: PodcastResponse[];
   };
@@ -31,7 +30,7 @@ interface PodcastResponse {
   };
 }
 
-const parseTopPodcasts = (data: TopPodcastsResponse) =>
+const parseTopPodcasts = (data: AllPodcastsResponse) =>
   data.feed.entry.map(
     (podcast) =>
       ({
@@ -43,7 +42,12 @@ const parseTopPodcasts = (data: TopPodcastsResponse) =>
       }) as PodcastType
   );
 
-export const useFetchTopPodcasts = (): FetchedData => {
+type FetchedAllPodcasts = {
+  data?: PodcastType[];
+  isLoading: boolean;
+};
+
+export const useFetchPodcasts = (): FetchedAllPodcasts => {
   const { data, isLoading, error } = useSWR(ALL_PODCASTS_URL, (url) =>
     fetcher<PodcastType[]>(url, parseTopPodcasts)
   );
